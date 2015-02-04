@@ -2545,7 +2545,7 @@ int fchown(int fd, uid_t owner, gid_t group) {
 }
 
 FILE *fopen(const char *pathname, const char *mode) {
-	FILE *result;
+	FILE *result = NULL;
 	instw_t instw;
 	int status=0;
 
@@ -2960,7 +2960,7 @@ struct dirent *readdir(DIR *dir) {
 int readlink(const char *path,char *buf,size_t bufsiz) {
 	int result;
 #else
-ssize_t readlink(const char *path,char *buf,size_t bufsiz) {
+ssize_t readlink(const char *__restrict path,char *buf,size_t bufsiz) {
 	ssize_t result;
 #endif
 	instw_t instw;
@@ -3095,7 +3095,7 @@ int rmdir(const char *pathname) {
 	return result;
 }
 
-int scandir(	const char *dir,struct dirent ***namelist,
+int scandir(	const char *__restrict dir,struct dirent ***namelist,
 		int (*select)(const struct dirent *),
 #if (GLIBC_MINOR >= 10)
 		int (*compar)(const struct dirent **,const struct dirent **)	) {
@@ -3711,7 +3711,7 @@ struct dirent64 *readdir64(DIR *dir) {
 	return result;
 }
 
-int scandir64(	const char *dir,struct dirent64 ***namelist,
+int scandir64(	const char *__restrict dir,struct dirent64 ***namelist,
 		int (*select)(const struct dirent64 *),
 #if (GLIBC_MINOR >= 10)
 		int (*compar)(const struct dirent64 **,const struct dirent64 **)	) {
